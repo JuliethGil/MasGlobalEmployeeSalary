@@ -7,7 +7,7 @@
 
         public void BadRequest(string message = null)
         {
-            Message = string.IsNullOrEmpty(message) ? "Error de negocio" : message;
+            Message = string.IsNullOrEmpty(message) ? "Business mistake" : message;
             StatusCode = 400;
         }
     }
