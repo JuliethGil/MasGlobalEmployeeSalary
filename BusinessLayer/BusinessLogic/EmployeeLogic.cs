@@ -1,19 +1,40 @@
 ﻿namespace BusinessLayer.BusinessLogic
 {
     using BusinessLayer.Interfaces;
+    using DataAccess.Interfaces;
     using DataAccess.Models;
     using System.Collections.Generic;
 
     public class EmployeeLogic : IEmployeeLogic
     {
-        public EmployeeLogic()
-        {
+        #region Attributes
+        public static IEmployeeLogic Interface { get; set; }
+        private readonly IEmployeeQuery employeeQuery;
+        private string errorMessage;
+        #endregion
 
+        #region Constructors
+        public static IEmployeeLogic GetInstance(IEmployeeQuery employeeQuery)
+        {
+            if (Interface != null)
+            {
+                return Interface;
+            }
+
+            return new EmployeeLogic(employeeQuery);
         }
 
-        public List<Employee> GetAllEmploy()
+        public EmployeeLogic(IEmployeeQuery employeeQuery)
         {
-            throw new System.NotImplementedException();
+            this.employeeQuery = employeeQuery;
         }
+        #endregion
+
+        #region Interface Methods 
+        public List<Employee> GetAllEmployee()
+        {
+            return employeeQuery.GetAllEmployee();
+        }
+        #endregion
     }
 }

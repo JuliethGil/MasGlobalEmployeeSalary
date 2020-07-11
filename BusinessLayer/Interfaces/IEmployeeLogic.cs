@@ -5,6 +5,6 @@
 
     public interface IEmployeeLogic
     {
-        List<Employee> GetAllEmploy();
+        List<Employee> GetAllEmployee();
     }
 }

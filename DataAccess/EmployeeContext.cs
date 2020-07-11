@@ -2,7 +2,7 @@
 
 namespace DataAccess
 {
-    class Program
+    public class EmployeeContext
     {
         static void Main(string[] args)
         {
