@@ -1,6 +1,6 @@
 ﻿namespace DataAccess.Interfaces
 {
-    public interface IResponseApiQuery
+    public interface IResponseClient
     {
         void BadRequest(string message);
     }

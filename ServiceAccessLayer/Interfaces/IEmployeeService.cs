@@ -1,9 +1,9 @@
-﻿namespace BusinessLayer.Interfaces
+﻿namespace ServiceAccessLayer.Interfaces
 {
     using DataAccess.Models;
     using System.Threading.Tasks;
 
-    public interface IEmployeeLogic
+    public interface IEmployeeService
     {
         Task<ResponseApi> GetEmployees();
     }

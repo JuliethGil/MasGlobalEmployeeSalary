@@ -6,7 +6,8 @@
     using BusinessLayer.Interfaces;
     using DataAccess.Models;
     using DataAccess.Interfaces;
-    using DataAccess.Queries;
+    using ServiceAccessLayer.Interfaces;
+    using ServiceAccessLayer.Services;
 
     [ApiController]
     [Route("api/[controller]")]
@@ -14,17 +15,17 @@
     {
         #region Attributes
         private IEmployeeLogic employeeLogic;
-        private IEmployeeQuery employeeQuery;
-        private IResponseApiQuery responseApiQuery;
+        private IResponseClient responseClient;
+        private IEmployeeService employeeService;
         private string errorMessage;
         #endregion
 
         #region Inicializer
         private void Inicializer()
         {
-            employeeQuery = EmployeeQuery.GetInstance();
-            employeeLogic = EmployeeLogic.GetInstance(employeeQuery);
-            responseApiQuery = ResponseApi.GetInstance();
+            employeeService = EmployeeService.GetInstance();
+            employeeLogic = EmployeeLogic.GetInstance(employeeService);
+            responseClient = ResponseClient.GetInstance();
             errorMessage = null;
         }
         #endregion
@@ -34,16 +35,16 @@
         public IActionResult Get()
         {
             Inicializer();
-            var employees = employeeLogic.GetAllEmployee();
+            var employees = employeeLogic.GetEmployees();
 
-            if (employees != null)
+            if (employees.Result != null && employees.Result.IsSuccess.Equals(true))
             {
-                return Ok(JsonConvert.SerializeObject(employees, Formatting.Indented));
+                return Ok(JsonConvert.SerializeObject(employees.Result, Formatting.Indented));
             }
             else
             {
-                response.BadRequest(errorMessage);
-                return BadRequest(JsonConvert.SerializeObject(response, Formatting.Indented));
+                responseClient.BadRequest(errorMessage);
+                return BadRequest(JsonConvert.SerializeObject(responseClient, Formatting.Indented));
             }
         }
         #endregion

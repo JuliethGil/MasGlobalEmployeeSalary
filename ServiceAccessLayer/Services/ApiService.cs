@@ -1,15 +1,15 @@
 ﻿namespace ServiceAccessLayer.Services
 {
+    using DataAccess.Models;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Threading.Tasks;
-    using Newtonsoft.Json;
-    using ServiceAccessLayer.Models;
 
-    public class ApiServices
+    public class ApiService
     {
-        public async Task<Response> GetList<T>(
+        public async Task<ResponseApi> GetList<T>(
             string urlBase,
             string servicePrefix,
             string controller)
@@ -24,7 +24,7 @@
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
+                    return new ResponseApi
                     {
                         IsSuccess = false,
                         Message = result,
@@ -32,7 +32,7 @@
                 }
 
                 var list = JsonConvert.DeserializeObject<List<T>>(result);
-                return new Response
+                return new ResponseApi
                 {
                     IsSuccess = true,
                     Message = "Ok",
@@ -41,7 +41,7 @@
             }
             catch (Exception ex)
             {
-                return new Response
+                return new ResponseApi
                 {
                     IsSuccess = false,
                     Message = ex.Message,

@@ -1,39 +1,39 @@
 ﻿namespace BusinessLayer.BusinessLogic
 {
     using BusinessLayer.Interfaces;
-    using DataAccess.Interfaces;
     using DataAccess.Models;
-    using System.Collections.Generic;
+    using ServiceAccessLayer.Interfaces;
+    using System.Threading.Tasks;
 
     public class EmployeeLogic : IEmployeeLogic
     {
         #region Attributes
         public static IEmployeeLogic Interface { get; set; }
-        private readonly IEmployeeQuery employeeQuery;
-        private string errorMessage;
+        private readonly IEmployeeService employeeService;
         #endregion
 
         #region Constructors
-        public static IEmployeeLogic GetInstance(IEmployeeQuery employeeQuery)
+        public static IEmployeeLogic GetInstance(IEmployeeService employeeService)
         {
             if (Interface != null)
             {
                 return Interface;
             }
 
-            return new EmployeeLogic(employeeQuery);
+            return new EmployeeLogic(employeeService);
         }
 
-        public EmployeeLogic(IEmployeeQuery employeeQuery)
+        public EmployeeLogic(IEmployeeService employeeService)
         {
-            this.employeeQuery = employeeQuery;
+            this.employeeService = employeeService;
         }
         #endregion
 
         #region Interface Methods 
-        public List<Employee> GetAllEmployee()
+        public async Task<ResponseApi> GetEmployees()
         {
-            return employeeQuery.GetAllEmployee();
+            var response = await employeeService.GetEmployees();
+            return response;
         }
         #endregion
     }
