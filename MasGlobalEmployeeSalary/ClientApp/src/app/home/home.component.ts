@@ -5,8 +5,9 @@ import { ApiService } from "./service";
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   public employees: Employee[];
+  public identityEmployee;
   url;
 
   constructor(private api: ApiService, @Inject('BASE_URL') baseUrl: string) {
@@ -16,6 +17,20 @@ export class HomeComponent implements OnInit{
   ngOnInit() {
     this.api
       .getListOfGroup(this.url)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.employees = data;
+        },
+        err => {
+          console.log(err);
+        }
+      );
+  }
+
+  searchEmployee() {
+    this.api
+      .getListOfGroup(this.url + "?identity=" + this.identityEmployee)
       .subscribe(
         data => {
           console.log(data);
