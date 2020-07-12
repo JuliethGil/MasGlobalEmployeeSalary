@@ -1,23 +1,41 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ApiService } from "./service";
 
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html'
 })
-export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
+export class FetchDataComponent implements OnInit {
+  public employees: Employee[];
+  url;
+
+  constructor(private api: ApiService, @Inject('BASE_URL') baseUrl: string) {
+    this.url = baseUrl + 'api/employee';
+  }
+
+  ngOnInit() {
+    this.api
+      .getListOfGroup(this.url)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.employees = data;
+        },
+        err => {
+          console.log(err);
+        }
+      );
   }
 }
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
+interface Employee {
+  Id: number,
+  Name: string,
+  ContractTypeName: string,
+  RoleId: number,
+  RoleName: string,
+  roleDescription: string,
+  hourlySalary: number,
+  monthlySalary: number
 }
