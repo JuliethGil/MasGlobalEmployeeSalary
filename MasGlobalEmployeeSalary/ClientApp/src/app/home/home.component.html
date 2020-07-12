@@ -1,19 +1,27 @@
-<h1 id="tableLabel">Employess</h1>
-<p *ngIf="!employees"><em>Loading...</em></p>
-
-<form>
-  <div class="input-group">
-    <input type="text" [(ngModel)]="identityEmployee" class="form-control" name="identityEmployee" placeholder="Search employee">
-    <div class="input-group-btn">
-      <button class="btn btn-primary" type="button" (click)="searchEmployee()">Search</button>
-    </div>
+<div class="row">
+  <div class="col-md-6">
+    <h1 id="tableLabel">Employess</h1>
   </div>
-</form>
+  <div class="col-md-6">
+    <form>
+      <div class="input-group">
+        <input type="number" [(ngModel)]="identityEmployee" class="form-control" name="identityEmployee" placeholder="Search employee">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button" (click)="searchEmployee()">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="mensajeEmployeeEmpy">
+  <p>{{mensajeEmployeeEmpy}}</p>
+</div>
 
 
 <div>
   <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="employees">
-    <thead>
+    <thead class="text-center">
       <tr>
         <th>Name</th>
         <th>Contract type name</th>
@@ -27,13 +35,12 @@
     <tbody>
       <tr *ngFor="let employee of employees">
         <td>{{ employee.Name }}</td>
-        <td>{{ employee.ContractTypeName }}</td>
-        <td>{{ employee.RoleName }}</td>
+        <td>{{ employee.Contract }}</td>
+        <td class="text-center">{{ employee.RoleName }}</td>
         <td>{{ employee.RoleDescription }}</td>
-        <td>{{ employee.HourlySalary }}</td>
-        <td>{{ employee.MonthlySalary }}</td>
-        <td>{{ employee.AnnualSalary }}</td>
-        <td></td>
+        <td class="text-right">{{ employee.HourlySalary | currency: 'USD' }}</td>
+        <td class="text-right">{{  employee.MonthlySalary | currency: 'USD'}}</td>
+        <td class="text-right">{{  employee.AnnualSalary | currency: 'USD' }}</td>
       </tr>
     </tbody>
   </table>

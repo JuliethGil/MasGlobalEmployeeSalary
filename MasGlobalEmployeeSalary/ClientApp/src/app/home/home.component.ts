@@ -8,6 +8,7 @@ import { ApiService } from "./service";
 export class HomeComponent implements OnInit {
   public employees: Employee[];
   public identityEmployee;
+  public mensajeEmployeeEmpy = "";
   url;
 
   constructor(private api: ApiService, @Inject('BASE_URL') baseUrl: string) {
@@ -15,26 +16,23 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api
-      .getListOfGroup(this.url)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.employees = data;
-        },
-        err => {
-          console.log(err);
-        }
-      );
   }
 
   searchEmployee() {
+    if (this.identityEmployee == null) {
+      this.identityEmployee = "";
+    }
     this.api
       .getListOfGroup(this.url + "?identity=" + this.identityEmployee)
       .subscribe(
         data => {
-          console.log(data);
-          this.employees = data;
+          if (data.length > 0) {
+            this.employees = data;
+            this.mensajeEmployeeEmpy = "";
+          } else {
+            this.employees = null;
+            this.mensajeEmployeeEmpy = "The identity from employee not exist";
+          }
         },
         err => {
           console.log(err);
@@ -52,5 +50,6 @@ interface Employee {
   RoleDescription: string,
   HourlySalary: number,
   MonthlySalary: number,
-  AnnualSalary: number
+  AnnualSalary: number,
+  Contract: string,
 }

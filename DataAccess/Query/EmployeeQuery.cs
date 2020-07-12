@@ -27,8 +27,12 @@
         public List<Employee> GetEmployeeIdentity(List<Employee> employees, int identity)
         {
             Employee employee = employees.Find(x => x.Id.Equals(identity));
+            List<Employee> listEmployee = new List<Employee>();
+            
+            if (employee != null)
+                listEmployee.Add(employee);
 
-            return new List<Employee>() { employee };
+            return listEmployee;
         }
         #endregion
     }

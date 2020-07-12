@@ -22,5 +22,16 @@
             }
             set { }
         }
+
+        public string Contract
+        {
+            get
+            {
+                return ContractType.HourlySalaryEmployee.ToString() == ContractTypeName
+                   ? "Hourly salary"
+                   : "Monthly salary";
+            }
+            set { }
+        }
     }
 }
