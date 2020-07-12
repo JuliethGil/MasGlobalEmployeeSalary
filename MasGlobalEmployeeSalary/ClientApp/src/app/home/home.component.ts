@@ -49,7 +49,8 @@ interface Employee {
   ContractTypeName: string,
   RoleId: number,
   RoleName: string,
-  roleDescription: string,
-  hourlySalary: number,
-  monthlySalary: number
+  RoleDescription: string,
+  HourlySalary: number,
+  MonthlySalary: number,
+  AnnualSalary: number
 }
