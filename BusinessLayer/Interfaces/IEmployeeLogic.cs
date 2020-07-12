@@ -5,6 +5,6 @@
 
     public interface IEmployeeLogic
     {
-        Task<ResponseApi> GetEmployees();
+        Task<ResponseApi> GetEmployees(int? identity);
     }
 }
