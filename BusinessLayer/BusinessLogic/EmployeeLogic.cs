@@ -1,6 +1,7 @@
 ﻿namespace BusinessLayer.BusinessLogic
 {
     using BusinessLayer.Interfaces;
+    using DataAccess.Factory;
     using DataAccess.Interfaces;
     using DataAccess.Models;
     using ServiceAccessLayer.Interfaces;
@@ -13,6 +14,7 @@
         public static IEmployeeLogic Interface { get; set; }
         private readonly IEmployeeService employeeService;
         private readonly IEmployeeQuery employeeQuery;
+        private ISalary salary;
         #endregion
 
         #region Constructors
@@ -42,6 +44,12 @@
         {
             var response = await employeeService.GetEmployees();
             List<Employee> employees = (List<Employee>)response.Result;
+            
+            foreach (Employee employee in employees)
+            {
+                salary = FactorySalary.GetInstance(employee);
+                salary.AnnualSalary();
+            }
 
             if (identity != null)
             {

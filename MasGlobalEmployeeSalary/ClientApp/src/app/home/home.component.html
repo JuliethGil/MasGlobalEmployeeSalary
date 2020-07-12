@@ -27,8 +27,7 @@
         <th>Contract type name</th>
         <th>Role name</th>
         <th>Role description</th>
-        <th>Hourly salary</th>
-        <th>Monthly salary</th>
+        <th>Salary</th>
         <th>Annual Salary</th>
       </tr>
     </thead>
@@ -38,8 +37,7 @@
         <td>{{ employee.Contract }}</td>
         <td class="text-center">{{ employee.RoleName }}</td>
         <td>{{ employee.RoleDescription }}</td>
-        <td class="text-right">{{ employee.HourlySalary | currency: 'USD' }}</td>
-        <td class="text-right">{{  employee.MonthlySalary | currency: 'USD'}}</td>
+        <td class="text-right">{{  employee.Salary | currency: 'USD'}}</td>
         <td class="text-right">{{  employee.AnnualSalary | currency: 'USD' }}</td>
       </tr>
     </tbody>

@@ -44,12 +44,10 @@ export class HomeComponent implements OnInit {
 interface Employee {
   Id: number,
   Name: string,
-  ContractTypeName: string,
+  Contract: string,
   RoleId: number,
   RoleName: string,
   RoleDescription: string,
-  HourlySalary: number,
-  MonthlySalary: number,
+  Salary: number,
   AnnualSalary: number,
-  Contract: string,
 }
